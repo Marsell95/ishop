@@ -1,0 +1,21 @@
+# Віртуальне середовище
+venv/
+env/
+
+# Python байт-код
+__pycache__/
+*.py[cod]
+*$py.class
+
+# IDE
+.vscode/
+.idea/
+
+# Django
+db.sqlite3
+media/
+staticfiles/  # Якщо використовуєш collectstatic
+
+# Логи та інше
+*.log
+.pylintrc  # Твій файл
