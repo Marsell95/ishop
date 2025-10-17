@@ -42,6 +42,12 @@ INSTALLED_APPS = [
     'goods',
 ]
 
+# ====== ТУТ! Додай ці 3 рядки ======
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+FILE_CHARSET = 'utf-8'
+DEFAULT_CHARSET = 'utf-8'
+# ====================================
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
