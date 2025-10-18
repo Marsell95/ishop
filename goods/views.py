@@ -4,15 +4,19 @@ from goods.models import Products
 
 
 def catalog(request):
-    
+
     goods = Products.objects.all()
-    
-    context: dict[str, str] = {        
+
+    context: dict[str, str] = {
         "title": "Home - Catalog",
         "goods": goods,
     }
     return render(request, "goods/catalog.html", context)
 
 
-def product(request):
-    return render(request, "goods/product.html")
+def product(request, product_slug):
+    product = Products.objects.get(slug=product_slug)
+
+    context: dict[str, Products] = {"product": product}
+
+    return render(request, "goods/product.html", context=context)
