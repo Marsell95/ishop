@@ -3,8 +3,7 @@ from django.http import HttpResponse
 
 from goods.models import Categories
 
-def index(request):
-    
+def index(request):   
 
     
     context: dict[str, str] = {
