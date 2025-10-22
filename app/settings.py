@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     "main",
     "goods",
     "users",
+    "carts",
 ]
 
 # ====== ТУТ! Додай ці 3 рядки ======
