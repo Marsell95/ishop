@@ -8,9 +8,9 @@ class CartQueryset(models.QuerySet):
     def total_price(self):
         return sum(cart.product_price() for cart in self)
     
+        
     def total_quantity(self):
-        if self:
-            return sum(cart.quantity for cart in self) if self else 0
+        return sum(cart.quantity for cart in self) or 0
         
 
 class Cart(models.Model):
