@@ -9,19 +9,18 @@ from traitlets import Instance
 
 from users.forms import ProfileForm, UserLoginForm, UserRegistrationForm
 
-def login(request):  
+def login(request):  # sourcery skip: use-named-expression
     if request.method == 'POST':
         form = UserLoginForm(data=request.POST)
         if form.is_valid():
-            username = request.POST['username']
-            password = request.POST['password']
-            user = auth.authenticate(username=username, password=password)
-            if user := auth.authenticate(username=username, password=password):
+            user = form.get_user()
+            if user:  # Проста перевірка
                 auth.login(request, user)
-                messages.success(request, f'{username}, You enter in account')
+                messages.success(request, f'{user.username}, You enter in account')
                 
-                if request.POST.get('next', None):
-                    return HttpResponseRedirect(request.POST.get('next'))
+                redirect_page = request.POST.get('next', None)
+                if redirect_page and redirect_page != reverse('user:logout'):
+                    return HttpResponseRedirect(redirect_page)
                 
                 return HttpResponseRedirect(reverse('main:index'))
     else:
@@ -32,6 +31,32 @@ def login(request):
         'form': form
     }
     return render(request, 'users/login.html', context)
+
+# def login(request):  
+#     if request.method == 'POST':
+#         form = UserLoginForm(data=request.POST)
+#         if form.is_valid():
+#             username = request.POST['username']
+#             password = request.POST['password']
+#             user = auth.authenticate(username=username, password=password)
+#             if user := auth.authenticate(username=username, password=password):
+#                 auth.login(request, user)
+#                 messages.success(request, f'{username}, You enter in account')
+                
+#                 redirect_page = request.POST.get('next', None)
+#                 if redirect_page and redirect_page != reverse('user:logout'):
+#                     return HttpResponseRedirect(request.POST.get('next'))
+                
+#                 return HttpResponseRedirect(reverse('main:index'))
+#     else:
+#         form = UserLoginForm()
+        
+#     context: dict[str, Any] = {
+#         'title': 'Home - Авторизація',
+#         'form': form
+#     }
+#     return render(request, 'users/login.html', context)
+
 
 
 def registration(request):
